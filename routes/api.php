@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\BlogController;
 use App\Http\Controllers\Api\UserController;
+use App\Http\Controllers\Api\LicenciasController;
 
 Route::post('register', [UserController::class, 'register']);
 Route::post('login', [UserController::class, 'login']);
@@ -17,9 +18,11 @@ Route::group( ['middleware'=> ["auth:sanctum"] ], function() {
     Route::post("create-blog", [BlogController::class, "createBlog"]); // crear un blog
     Route::get("list-blog", [BlogController::class, "listBlog"]); //mostrar TODOS los blogs
     Route::get("show-blog/{id}", [BlogController::class, "showBlog"]); //mostrar UN solo blog
-
     Route::delete("delete-blog/{id}", [BlogController::class, "deleteBlog"]); // borrar un blog (metodo DELETE)
     Route::put("update-blog/{id}", [BlogController::class, "update"]); // actualizar un blog (metodo PUT)
+
+    Route::get("lic-ver-faltas", [BlogController::class, "verFaltasDNI"]); //mostrar faltas por DNI
+
 });
 
 //Esta ruta viene por defecto

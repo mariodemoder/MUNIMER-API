@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-
+use DB;
 use App\Models\User;
 
 //Para hacer un hashing de password, hay que invocar a la fachada Hash
@@ -12,12 +12,12 @@ use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
-    public function register(Request $request) {        
+    public function register(Request $request) {
         // Validaciones para registrar un usuario
         $request->validate([
             'name' => 'required',
             'email' => 'required|email|unique:users',
-            'password' => 'required|confirmed',            
+            'password' => 'required|confirmed',
         ]);
 
         // Creamos al usuario
@@ -42,8 +42,8 @@ class UserController extends Controller
         $request->validate([
             "email" => "required|email",
             "password" => "required"
-        ]);        
-        $user = User::where("email", "=", $request->email)->first();                
+        ]);
+        $user = User::where("email", "=", $request->email)->first();
         if(isset($user->id)){             
             if(Hash::check($request->password, $user->password)) {                
                $token = $user->createToken("auth_token")->plainTextToken;                                 

@@ -9,6 +9,7 @@ class Blog extends Model
 {
     use HasFactory, HasApiTokens;
 
+    protected $connection = 'mysql';
     protected $table = 'blogs' ;
 
     protected $fillable = [
